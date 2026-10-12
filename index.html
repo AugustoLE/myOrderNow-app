@@ -1,211 +1,474 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+    <meta name="description" content="MyOrderNow - Aplicación moderna de pedidos de comida a domicilio con catálogo interactivo, carrito en tiempo real, cupones y simulación de entrega.">
+    <meta name="theme-color" content="#ff7f00">
+    <title>MyOrderNow • Food Delivery App (Beta)</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
+    
+    <!-- Estilos Base & Sistema de Diseño Moderno -->
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 
 <body>
 
-    <header>
-        <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-auto">
-                    <h1>MyOrderNow</h1>
+    <!-- ==========================================
+         HEADER PRINCIPAL STICKY
+         ========================================== -->
+    <header class="site-header">
+        <div class="header-container">
+            <!-- Brand / Logo -->
+            <a href="#" class="brand-section">
+                <div class="brand-logo-icon">
+                    <i class="fas fa-utensils"></i>
                 </div>
-                <div class="col-auto">
-                    <div class="avatar-container" data-target="#profileOptions" data-toggle="modal">
-                        <img src="img/avatar.jpg" alt="">
-                        <i class="fas fa-cog"></i>
-                    </div>
+                <h1 class="brand-title">
+                    MyOrderNow
+                    <span class="brand-badge">Beta</span>
+                </h1>
+            </a>
+
+            <!-- Selector de Dirección de Entrega -->
+            <button class="address-pill-btn" id="addressSelectorBtn" title="Cambiar dirección de entrega">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="currentAddressText">Cargando ubicación...</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+
+            <!-- Acciones: Carrito y Perfil -->
+            <div class="header-actions">
+                <button class="cart-icon-btn" id="cartToggleBtn" title="Ver carrito de compras" aria-label="Carrito de compras">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-badge-counter" id="cartBadge" style="display: none;">0</span>
+                </button>
+
+                <div class="avatar-wrapper" id="profileAvatarBtn" title="Mi Cuenta y Pedidos" role="button" tabindex="0">
+                    <img src="img/avatar.jpg" alt="Avatar de usuario">
                 </div>
             </div>
         </div>
     </header>
-    <!-- Modal -->
-    <div class="modal fade profile-options-modal" id="profileOptions" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
 
-                <div class="modal-header">
-                    <h5 class="modal-title">Opciones</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <!-- ==========================================
+         CONTENIDO PRINCIPAL
+         ========================================== -->
+    <main class="main-wrapper">
+        
+        <!-- Banner Promocional Dinámico -->
+        <section class="promo-banner-container" id="promoBanner">
+            <!-- Renderizado por js/app.js -->
+        </section>
+
+        <!-- Barra de Búsqueda, Categorías y Filtros -->
+        <section class="search-toolbar-card">
+            <!-- Buscador en tiempo real -->
+            <div class="search-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" class="search-field" placeholder="¿Qué se te antoja hoy? (ej. Hamburguesa, Tacos, Salmón...)" autocomplete="off">
+                <button type="button" id="clearSearchBtn" class="btn-clear-search" title="Limpiar búsqueda">
+                    <i class="fas fa-times-circle"></i>
+                </button>
+            </div>
+
+            <!-- Categorías con Scroll Horizontal -->
+            <div class="categories-scroll-wrapper" id="categoriesContainer">
+                <!-- Píldoras de categorías inyectadas por js/app.js -->
+            </div>
+
+            <!-- Barra de Filtros Rápidos y Ordenación -->
+            <div class="filters-sort-bar">
+                <div class="quick-filter-chips">
+                    <button class="filter-chip active" data-filter="todos">Todos</button>
+                    <button class="filter-chip" data-filter="top"><i class="fas fa-star text-warning"></i> Top Valorados (4.8+)</button>
+                    <button class="filter-chip" data-filter="free_shipping"><i class="fas fa-motorcycle text-success"></i> Envío gratis</button>
+                    <button class="filter-chip" data-filter="deals"><i class="fas fa-tags text-primary"></i> Ofertas & 2x1</button>
                 </div>
 
-                <div class="modal-body">
-                    <ul class="profile-options-list">
-                        <li>
-                            <a href="#"><i class="fas fa-user"></i> Mi perfil</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fas fa-map-marker-alt"></i> Mis direcciones</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fas fa-credit-card"></i> Mis tarjetas</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-danger"><i class="fas fa-times-circle"></i> Cerrar sesión</a>
-                        </li>
-                    </ul>
+                <div class="sort-and-count">
+                    <span class="results-count-text" id="resultsCount">Cargando...</span>
+                    <select id="sortSelect" class="sort-select" aria-label="Ordenar productos">
+                        <option value="popular">Más populares</option>
+                        <option value="price_asc">Menor precio</option>
+                        <option value="price_desc">Mayor precio</option>
+                        <option value="rating">Mejor calificación</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección del Catálogo de Productos -->
+        <section class="products-section">
+            <div class="products-section-header">
+                <h2 class="section-headline">Los más pedidos</h2>
+            </div>
+
+            <!-- Grid Responsivo de Tarjetas de Productos -->
+            <div class="products-grid-container" id="productsGrid">
+                <!-- Tarjetas de comida inyectadas por js/app.js -->
+            </div>
+
+            <!-- Estado Vacío cuando no hay resultados de búsqueda -->
+            <div class="empty-state-card d-none" id="emptyProductsState">
+                <i class="fas fa-search"></i>
+                <h3>No encontramos ningún platillo con esos filtros</h3>
+                <p>Prueba con otros términos de búsqueda como "hamburguesa", "postre" o selecciona otra categoría.</p>
+                <button class="btn btn-primary" id="resetFiltersBtn">
+                    <i class="fas fa-undo"></i> Restablecer filtros
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==========================================
+         DRAWER LATERAL DEL CARRITO DE COMPRAS
+         ========================================== -->
+    <div class="cart-drawer-overlay" id="cartOverlay"></div>
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Carrito de compras">
+        <div class="cart-drawer-header">
+            <h3><i class="fas fa-shopping-bag text-primary"></i> Tu Carrito</h3>
+            <button class="btn-close-drawer" id="closeCartBtn" aria-label="Cerrar carrito">&times;</button>
+        </div>
+
+        <div class="cart-drawer-body">
+            <!-- Vista vacía -->
+            <div class="cart-empty-box d-none" id="cartEmptyView">
+                <i class="fas fa-shopping-basket"></i>
+                <h4>Tu carrito está vacío</h4>
+                <p>Explora nuestros deliciosos platillos y agrégalos a tu orden.</p>
+                <button class="btn btn-outline-primary" onclick="document.getElementById('closeCartBtn').click();">
+                    Explorar Menú
+                </button>
+            </div>
+
+            <!-- Lista de Ítems en el Carrito -->
+            <div class="cart-items-list" id="cartItemsList">
+                <!-- Ítems inyectados por js/app.js -->
+            </div>
+        </div>
+
+        <!-- Footer del Carrito con Resumen y Checkout -->
+        <div class="cart-drawer-footer" id="cartFooter">
+            <!-- Sección de Cupones -->
+            <div class="coupon-section">
+                <div class="coupon-input-group">
+                    <input type="text" id="couponInput" class="coupon-input" placeholder="Cupón (ej. BIENVENIDO10)">
+                    <button class="btn btn-sm btn-dark" id="applyCouponBtn">Aplicar</button>
+                </div>
+                <div class="applied-coupon-pill d-none" id="appliedCouponBadge">
+                    <span><i class="fas fa-tag"></i> <span id="couponText"></span></span>
+                    <button class="btn-remove-coupon" id="removeCouponBtn" title="Remover cupón">&times;</button>
+                </div>
+            </div>
+
+            <!-- Desglose de Cuenta -->
+            <div class="cart-bill-summary">
+                <div class="bill-row">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal">$0.00</span>
+                </div>
+                <div class="bill-row discount d-none" id="cartDiscountRow">
+                    <span>Descuento aplicado</span>
+                    <span id="cartDiscount">-$0.00</span>
+                </div>
+                <div class="bill-row">
+                    <span>Costo de envío</span>
+                    <span id="cartShipping">$2.50</span>
+                </div>
+                <div class="bill-row total">
+                    <span>Total a pagar</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="cart-actions">
+                <button class="btn-clear-cart" id="clearCartBtn" title="Vaciar Carrito">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <button class="btn-checkout-primary" id="goToCheckoutBtn">
+                    Proceder al Pago <i class="fas fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ==========================================
+         MODAL DETALLE DE PRODUCTO Y PERSONALIZACIÓN
+         ========================================== -->
+    <div class="custom-modal-overlay" id="productDetailModal" role="dialog" aria-modal="true">
+        <div class="custom-modal-dialog">
+            <button class="btn-close-modal-floating" id="closeProductModalBtn">&times;</button>
+            <div class="modal-header-hero">
+                <img src="" id="modalProductImg" alt="Platillo">
+            </div>
+            <div class="modal-body-padded">
+                <div class="product-tags-badges mb-2" id="modalProductTags"></div>
+                <h3 class="modal-product-title" id="modalProductName">Nombre</h3>
+                <div class="modal-product-restaurant" id="modalProductRestaurant">Restaurante</div>
+
+                <div class="modal-meta-badges">
+                    <span id="modalProductRating"><i class="fas fa-star text-warning"></i> 4.8</span>
+                    <span>•</span>
+                    <span><i class="fas fa-clock"></i> <span id="modalProductTime">20-30 min</span></span>
+                    <span>•</span>
+                    <span><i class="fas fa-fire-alt text-danger"></i> <span id="modalProductCalories">650 kcal</span></span>
+                </div>
+
+                <p class="modal-product-desc" id="modalProductDesc">Descripción del producto</p>
+
+                <!-- Extras / Toppings seleccionables -->
+                <div id="modalProductOptions"></div>
+
+                <!-- Instrucciones especiales -->
+                <div class="form-group-note">
+                    <label for="modalInstructions"><i class="fas fa-comment-dots"></i> Indicaciones especiales para la cocina:</label>
+                    <textarea id="modalInstructions" class="form-textarea" rows="2" placeholder="Ej: Sin cebolla, salsas aparte, cubiertos extra..."></textarea>
+                </div>
+
+                <!-- Footer del Modal con Cantidad y CTA -->
+                <div class="modal-footer-cta">
+                    <div class="quantity-stepper">
+                        <button type="button" id="modalQtyMinus">-</button>
+                        <span class="qty-num" id="modalQtyValue">1</span>
+                        <button type="button" id="modalQtyPlus">+</button>
+                    </div>
+
+                    <button class="btn-add-to-cart-large" id="modalAddToCartBtn">
+                        <span>Agregar al pedido</span>
+                        <span id="modalBtnTotal">$0.00</span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <main class="main">
-        <div class="container">
-            <div class="search-container">
-                <form>
-                    <input type="text" name="searchInput" id="searchInput">
-                    <button type="button" class="btn btn-primary btn-block">Buscar</button>
+    <!-- ==========================================
+         MODAL DE CHECKOUT Y DATOS DE ENTREGA
+         ========================================== -->
+    <div class="custom-modal-overlay" id="checkoutModal" role="dialog" aria-modal="true">
+        <div class="custom-modal-dialog checkout-modal-dialog">
+            <div class="checkout-header">
+                <h3><i class="fas fa-credit-card text-primary mr-2"></i> Confirmar Pedido</h3>
+                <button class="btn-close-drawer" id="closeCheckoutModalBtn">&times;</button>
+            </div>
+            <div class="checkout-body">
+                <form id="checkoutForm">
+                    <!-- Dirección -->
+                    <label class="form-label-bold"><i class="fas fa-map-marker-alt text-primary"></i> Dirección de entrega:</label>
+                    <input type="text" id="checkoutAddressInput" class="form-input-control" required placeholder="Calle, Carrera, Edificio o Apto">
+
+                    <!-- Teléfono -->
+                    <label class="form-label-bold"><i class="fas fa-phone text-primary"></i> Teléfono de contacto:</label>
+                    <input type="tel" id="checkoutPhoneInput" class="form-input-control" required placeholder="+57 300 000 0000">
+
+                    <!-- Método de Pago -->
+                    <label class="form-label-bold"><i class="fas fa-wallet text-primary"></i> Método de pago:</label>
+                    <div class="payment-methods-grid">
+                        <label class="payment-method-card">
+                            <input type="radio" name="paymentMethod" value="Efectivo" checked>
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Efectivo al recibir</span>
+                        </label>
+                        <label class="payment-method-card">
+                            <input type="radio" name="paymentMethod" value="Tarjeta">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Tarjeta Crédito/Débito</span>
+                        </label>
+                        <label class="payment-method-card">
+                            <input type="radio" name="paymentMethod" value="Nequi / Transferencia">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Nequi / Daviplata</span>
+                        </label>
+                    </div>
+
+                    <!-- Notas -->
+                    <label class="form-label-bold"><i class="fas fa-clipboard-list text-primary"></i> Notas para el repartidor:</label>
+                    <input type="text" id="checkoutNotesInput" class="form-input-control" placeholder="Ej: Timbre 402, dejar en recepción...">
+
+                    <!-- Resumen rápido -->
+                    <div class="checkout-summary-box">
+                        <h5 class="mb-2" style="font-size: 14px; font-weight: 700;">Resumen del pedido:</h5>
+                        <div id="checkoutItemsSummary"></div>
+                        <div class="checkout-summary-row mt-2 pt-2 border-top">
+                            <strong>Total a pagar:</strong>
+                            <strong class="text-primary" id="checkoutTotalDisplay" style="font-size: 16px;">$0.00</strong>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg" style="border-radius: var(--radius-pill); font-weight: 700;">
+                        <i class="fas fa-check-circle mr-1"></i> Realizar Pedido Ahora
+                    </button>
                 </form>
             </div>
-            <div class="products-list-container">
-                <h2 class="section-title">Los más pedidos</h2>
-                <ul>
-                    <!-- Primer producto -->
-                    <li>
-                        <a href="#">
-                            <div class="product-image">
-                                <img src="img/producto1.jpg" alt="">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-info-inner">
-                                    <div class="tags">
-                                        <span>Descuento</span><span>Envío gratis</span>
-                                    </div>
-                                    <h3 class="product-name">Burrito especial</h3>
-                                    <p class="restaurant">Restaurante de prueba</p>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                                <p class="product-price"><span>$</span>14,99</p>
-                            </div>
-                        </a>
-                    </li>
-                    <!-- Segundo producto -->
-                    <li>
-                        <a href="#">
-                            <div class="product-image">
-                                <img src="img/producto2.jpg" alt="">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-info-inner">
-                                    <div class="tags">
-                                        <span>2x1</span><span>Descuento 50%</span>
-                                    </div>
-                                    <h3 class="product-name">Postre de la casa</h3>
-                                    <p class="restaurant">Restaurante de prueba</p>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                                <p class="product-price"><span>$</span>6,99</p>
-                            </div>
-                        </a>
-                    </li>
-                    <!-- Tercer producto -->
-                    <li>
-                        <a href="#">
-                            <div class="product-image">
-                                <img src="img/producto3.jpg" alt="">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-info-inner">
-                                    <div class="tags">
-                                        <span>2x1</span><span>Envío gratis</span><span>Descuento</span>
-                                    </div>
-                                    <h3 class="product-name">Salmón</h3>
-                                    <p class="restaurant">Restaurante de prueba</p>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                                <p class="product-price"><span>$</span>21,47</p>
-                            </div>
-                        </a>
-                    </li>
-                    <!-- Cuarto producto -->
-                    <li>
-                        <a href="#">
-                            <div class="product-image">
-                                <img src="img/producto4.jpg" alt="">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-info-inner">
-                                    <div class="tags">
-                                        <span>Envío gratis</span>
-                                    </div>
-                                    <h3 class="product-name">Donas glaseadas x6</h3>
-                                    <p class="restaurant">Restaurante de prueba</p>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                                <p class="product-price"><span>$</span>9,99</p>
-                            </div>
-                        </a>
-                    </li>
-                    <!-- Quinto producto -->
-                    <li>
-                        <a href="#">
-                            <div class="product-image">
-                                <img src="img/producto5.jpg" alt="">
-                            </div>
-                            <div class="product-info">
-                                <div class="product-info-inner">
-                                    <div class="tags">
-                                        <span>Envío gratis</span><span>Combo</span>
-                                    </div>
-                                    <h3 class="product-name">Mega hamburguesa</h3>
-                                    <p class="restaurant">Restaurante de prueba</p>
-                                    <div class="stars">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                                <p class="product-price"><span>$</span>15,99</p>
-                            </div>
-                        </a>
-                    </li>
+        </div>
+    </div>
 
-                </ul>
-                <div class="pt-4 pb-5 text-center">
-                    <a href="#" class="btn btn-block btn-link">
-                        <span class="d-block mb-2">Ver más productos</span>
-                        <i class="fas fa-arrow-down"></i>
-                    </a>
+    <!-- ==========================================
+         MODAL SIMULACIÓN DE TRACKING EN VIVO
+         ========================================== -->
+    <div class="custom-modal-overlay" id="trackingModal" role="dialog" aria-modal="true">
+        <div class="custom-modal-dialog tracking-dialog">
+            <button class="btn-close-modal-floating" id="closeTrackingModalBtn">&times;</button>
+            <div class="tracking-animation-icon">
+                <i class="fas fa-motorcycle"></i>
+            </div>
+            <h3 class="tracking-title">¡Pedido en Marcha!</h3>
+            <span class="tracking-order-badge">Orden <strong id="trackingOrderNumber">#ORD-0000</strong> • Total <strong id="trackingOrderTotal">$0.00</strong></span>
+
+            <!-- Stepper de 4 Pasos -->
+            <div class="tracking-stepper-container">
+                <div class="progress-track-bg">
+                    <div class="progress-track-fill" id="trackingProgressBar"></div>
+                </div>
+                <div class="stepper-nodes">
+                    <div class="tracking-step completed">
+                        <div class="step-node-icon"><i class="fas fa-check"></i></div>
+                        <span class="step-node-label">Recibido</span>
+                    </div>
+                    <div class="tracking-step">
+                        <div class="step-node-icon"><i class="fas fa-utensils"></i></div>
+                        <span class="step-node-label">En cocina</span>
+                    </div>
+                    <div class="tracking-step">
+                        <div class="step-node-icon"><i class="fas fa-motorcycle"></i></div>
+                        <span class="step-node-label">En camino</span>
+                    </div>
+                    <div class="tracking-step">
+                        <div class="step-node-icon"><i class="fas fa-home"></i></div>
+                        <span class="step-node-label">Entregado</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estado en vivo -->
+            <div class="tracking-live-card">
+                <p id="trackingStatusMessage" style="font-size: 14px; font-weight: 500; margin: 0;">
+                    El restaurante ha recibido y confirmado tu orden.
+                </p>
+                <div class="driver-info-row">
+                    <div class="driver-profile">
+                        <div class="driver-avatar"><i class="fas fa-user-astronaut"></i></div>
+                        <div>
+                            <strong style="font-size: 13px;">Carlos Rodríguez</strong>
+                            <div style="font-size: 11px; color: var(--text-muted);"><i class="fas fa-star text-warning"></i> 4.9 • Moto Honda Roja</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-outline-success" onclick="alert('Llamando a Carlos Rodríguez (Simulación)...');" title="Llamar repartidor">
+                        <i class="fas fa-phone-alt"></i> Contactar
+                    </button>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-block" id="trackingDismissBtn" style="border-radius: var(--radius-pill); font-weight: 600;">
+                Entendido, continuar explorando
+            </button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL DE SELECCIÓN DE DIRECCIÓN
+         ========================================== -->
+    <div class="custom-modal-overlay" id="addressModal" role="dialog" aria-modal="true">
+        <div class="custom-modal-dialog" style="max-width: 480px;">
+            <div class="checkout-header">
+                <h3><i class="fas fa-map-marker-alt text-primary mr-2"></i> Direcciones de Entrega</h3>
+                <button class="btn-close-drawer" id="closeAddressModalBtn">&times;</button>
+            </div>
+            <div class="modal-body-padded">
+                <div class="address-options-list" id="addressesList"></div>
+
+                <div class="mt-3 pt-3 border-top">
+                    <label class="form-label-bold">Agregar nueva dirección:</label>
+                    <div class="d-flex gap-2">
+                        <input type="text" id="newAddressInput" class="form-input-control mb-0 mr-2 flex-grow-1" placeholder="Ej: Carrera 15 # 93-60">
+                        <button class="btn btn-primary" id="saveNewAddressBtn">Guardar</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <script src="js/jquery.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <!-- ==========================================
+         MODAL DE PERFIL, PEDIDOS Y FAVORITOS
+         ========================================== -->
+    <div class="custom-modal-overlay" id="profileOptionsModal" role="dialog" aria-modal="true">
+        <div class="custom-modal-dialog profile-modal-dialog">
+            <div class="checkout-header">
+                <h3><i class="fas fa-user-circle text-primary mr-2"></i> Mi Cuenta</h3>
+                <button class="btn-close-drawer" id="closeProfileModalBtn">&times;</button>
+            </div>
+
+            <!-- Tabs de navegación en perfil -->
+            <div class="profile-tabs-header">
+                <button class="profile-tab-btn active" data-tab="tabProfile">Perfil</button>
+                <button class="profile-tab-btn" data-tab="tabOrders">Mis Pedidos</button>
+                <button class="profile-tab-btn" data-tab="tabFavorites">Favoritos</button>
+            </div>
+
+            <!-- Contenido de Tabs -->
+            <div class="profile-tab-content">
+                <!-- Tab: Perfil -->
+                <div class="profile-tab-pane active" id="tabProfile">
+                    <div class="profile-user-card">
+                        <img src="img/avatar.jpg" alt="Avatar" class="profile-avatar-large">
+                        <div>
+                            <h4 style="font-weight: 700; margin: 0 0 4px 0;">Augusto Licona</h4>
+                            <p style="color: var(--text-muted); font-size: 13px; margin: 0 0 6px 0;">augusto.dev@example.com</p>
+                            <span class="badge badge-success" style="font-size: 11px;">Cliente VIP ⭐</span>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span><i class="fas fa-phone mr-2 text-primary"></i> Teléfono</span>
+                            <strong>+57 310 987 6543</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span><i class="fas fa-map-marker-alt mr-2 text-primary"></i> Ciudad principal</span>
+                            <strong>Bogotá, Colombia</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span><i class="fas fa-credit-card mr-2 text-primary"></i> Tarjeta guardada</span>
+                            <strong>Visa •••• 4242</strong>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tab: Mis Pedidos Historial -->
+                <div class="profile-tab-pane" id="tabOrders">
+                    <div id="profileOrdersList"></div>
+                </div>
+
+                <!-- Tab: Favoritos -->
+                <div class="profile-tab-pane" id="tabFavorites">
+                    <div id="profileFavoritesList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         NOTIFICACIONES TOAST FLOTANTES
+         ========================================== -->
+    <div class="toasts-container" id="toastsContainer"></div>
+
+    <!-- ==========================================
+         SCRIPTS
+         ========================================== -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>
